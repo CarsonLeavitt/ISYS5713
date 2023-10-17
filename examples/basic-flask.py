@@ -1,15 +1,18 @@
 from flask import Flask
 from flask import jsonify
 from flask import request
+from flask_cors import CORS
 import sqlite3
 from pathlib import Path
 
 ###
+
 # Setup
 ###
 app = Flask(__name__) 
+CORS(app)
 DB_PATH = Path.cwd() 
-DATABASE_FILE = DB_PATH / 'examples'/'chinook.db'
+DATABASE_FILE = DB_PATH / 'chinook.db'
 
 ###
 # Routes
@@ -106,6 +109,7 @@ def delete_customer(id):
 def select_all_customers():
     ''' Get all customers from the database
     '''
+    print(DATABASE_FILE)
     conn = sqlite3.connect(DATABASE_FILE)
     cur = conn.cursor()
     # Get column names from the sales table
